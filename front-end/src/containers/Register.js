@@ -3,7 +3,7 @@ import {Form, FormGroup, ControlLabel, FormControl, Button, Col} from 'react-boo
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Autosuggest from 'react-autosuggest';
-// import Insurance from './Insurance';
+import Insurance from '../components/Insurance';
 import { FormErrors } from './TestFormErrors';
 import RegisterAction from '../actions/RegisterAction';
 
@@ -169,12 +169,15 @@ class Register extends Component{
 
               <label htmlFor="insurance"></label>
               <div className="input-field col s12">
+              
               <i className="material-icons prefix icons">code</i>
-              <input type="text"  name="insurance"
+              <Insurance id="insurance" />
+          {/*    <input type="text"  name="insurance"
                 placeholder="Select Insurance Type"
                 value={this.state.insurance}
-                onChange={this.handleUserInput}  />
-                </div>
+                onChange={this.handleUserInput}  />*/}
+
+               </div>
 
               <label htmlFor="city"></label>
               <div className="input-field col s12">

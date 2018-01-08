@@ -9,6 +9,7 @@ import Home from './containers/Home';
 import Register from './containers/Register';
 import Login from './containers/Login';
 import Profile from './containers/Profile';
+import Logout from './containers/Logout';
 
 
 
@@ -30,6 +31,7 @@ class App extends Component {
           <Route exact path='/register' component={Register} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/profile' component={Profile}/>
+          <Route exact path='/' component={Logout}/>
 
 
         </div>
