@@ -2,14 +2,23 @@ import React, { Component } from 'react';
 import DoctorResults from '../components/DoctorResults'
 import DoctorMap from '../components/DoctorMap'
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
+import SelectMarker from '../actions/SelectMarker';
+
 
 class SearchResults extends Component{
 	constructor(){
 		super()
 		this.hover = this.hover.bind(this);
 		this.onMouseOut = this.onMouseOut.bind(this);
+		this.mouseAction = this.mouseAction.bind(this);
 	}
+
+	mouseAction(info){
+		console.log(info);
+		this.props.mouseMarker(info);
+	}
+
 
 	onMouseOut(id){
 		console.log("mouse moved out of ", id)
@@ -35,6 +44,7 @@ class SearchResults extends Component{
 	// }
 
 	render(){
+		var marker = this.props.marker;
 		document.body.style.background = 'url("../images/background5.jpg") no-repeat center fixed'
 		document.body.style.backgroundSize = 'cover'
 		console.log(this.props.drData.data.doctors);//if after refresh this state is empty - we'll use sessionStorage
@@ -54,13 +64,23 @@ class SearchResults extends Component{
 			locations = JSON.parse(locationsInfo);
 			console.log("from sessionStorage ", locations, typeof(locations))
 		}
+
+		
+		if(marker){
+			var selectedDoctors = doctors.filter((doc)=>{
+				return doc.id === marker.id
+			})
+			var selectdoctors = selectedDoctors;
+		}else{
+			selectdoctors = doctors;
+		}
 		
 		return(
 				<div className="results-wrapper">
 					<div className="row">
 						<div className="col s7 big-box">
 								{doctors.map((doctor, index)=>{
-									return <DoctorResults key={index} profile={doctor} />
+									return <DoctorResults key={index} profile={doctor} oneDoctorMarker = {this.mouseAction} />
 								})}{/*we are closing .map and then JS expression here*/}
 							</div>
 							<div className="col s5 map">
@@ -76,15 +96,16 @@ class SearchResults extends Component{
 	function mapStateToProps(state){
 	 	// console.log(state);
 	 	return{
-	 		drData: state.searchResults
+	 		drData: state.searchResults,
+	 		marker: state.selectMarker
 	 	}
 	}
 
-	// function mapDispatchToProps(dispatch){
-	// 	return bindActionCreators({
+	function mapDispatchToProps(dispatch){
+		return bindActionCreators({
+			mouseMarker: SelectMarker
+		}, dispatch)
+	}
 
-	// 	}, dispatch)
-	// }
 
-
-export default connect(mapStateToProps)(SearchResults);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

@@ -74,16 +74,18 @@ componentWillReceiveProps(newProps){
         let doctor = doctors.filter((doc, index)=>{
             return doc.id == doctorid
         })
-        console.log(doctor);
-        console.log(typeof(doctor[0].phoneArray))
-        var x = JSON.stringify(doctor[0].phoneArray[0]);
-        console.log(x);
-        
-
-            x = x.replace(/\D+/g, '')
+        var phones = doctor[0].phoneArray.map((phone, index)=>{
+            let phoneArray = []
+            let number = phone.number;
+            let type = phone.type;
+            let capType = type.charAt(0).toUpperCase() + type.slice(1)
+            let stringy =JSON.stringify(number);
+            let formatted  = stringy.replace(/\D+/g, '')
             .replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')
-            console.log(x)
-
+            // return (`${type}: `+formatted)
+            return (`${capType} : ` + formatted)
+        })
+        console.log(phones)
 
  
 
@@ -115,10 +117,9 @@ componentWillReceiveProps(newProps){
             	</tr>
             	
             	<tr>
-                    <th>Phone:</th>
-                    <td>{x}</td>
-
-            	</tr>
+                    <th>{(doctor[0].phoneArray.length === 1) ? ('Phone :') : ('Phones :')}</th>
+                    <td>{phones.map((phone, index)=>{return <li>{phone}</li>})}</td>
+              </tr>
 
 
 

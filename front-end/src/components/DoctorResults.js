@@ -4,6 +4,16 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
  
 class DoctorResults extends Component{
 
+
+	mouseHandler(info,offOrOn){
+		console.log(info, offOrOn)
+		if(offOrOn == "on"){
+			this.props.oneDoctorMarker(info)
+		}else{
+			this.props.oneDoctorMarker('')
+		}
+	}
+
 	render(){
 		// console.log(this.props.profile);
 		const profile = this.props.profile;
@@ -13,6 +23,12 @@ class DoctorResults extends Component{
         // var distance = Math.round(profile.distance *100) / 100
         var distance = (profile.distance.toFixed(2)) // another way of rounding
         console.log(distance)
+
+        const marker = {
+			lat : profile.lat,
+			lng : profile.lng,
+			id: profile.id
+		}
 		// const phones = profile.phoneArray.length;
 		// console.log("this many phones in practice", phones)
 		// console.log(profile.phoneArray)
@@ -29,7 +45,7 @@ class DoctorResults extends Component{
 						<div className="practice-city-state-zip-results">{profile.city}, {profile.state}, {profile.zip}</div>
 	        			<div className="phone-results">{phoneNumber}
 	        			</div>
-	        			<div>{distance} Miles</div>	
+	        			<div className="distance-results">{distance} Miles</div>	
 	        		</div>
 				</div> 
 			</div>

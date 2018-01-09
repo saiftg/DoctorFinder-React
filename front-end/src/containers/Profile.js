@@ -19,8 +19,10 @@ class Profile extends Component{
 
       if(this.props.add.length !== 0){
         var priCare = this.props.add.name
+        var priCareLink = this.props.add.drID
       }else{
         priCare = this.props.auth.doctor
+        priCareLink = this.props.auth.drID
       }
         // document.body.style.background = 'url("../images/background5.jpg") no-repeat center center fixed'
         document.body.style.backgroundSize = 'cover';
@@ -80,7 +82,7 @@ class Profile extends Component{
 		</tr>
 		<tr>
 			<th>Primary Care Physician:</th>
-			<td><Link to={`/getDoctor/${this.props.auth.drID}`}>{priCare}</Link></td>
+			<td><Link to={`/getDoctor/${priCareLink}`}>{priCare}</Link></td>
 		</tr>
 	 
 
@@ -90,6 +92,9 @@ class Profile extends Component{
             	
  				</tbody>
     		</table>
+            </div>
+            <div className="col s3">
+                <img id="drPhoto" src = '../images/6d.png' />
             </div>
              
             </div>

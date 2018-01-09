@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Login from './Login';
+import { Link } from 'react-router-dom';
+import Search from '../components/HomeSearch'
 
 class Home extends Component{
 
@@ -8,9 +11,17 @@ class Home extends Component{
 		return(
 			
 			<div className='row'>
-			<div className="home-box col s6 offset-s5">Login Stuff</div>
+			<div className='col m12 offset-m4 title-head justify'>
+
+			<div>Welcome to LocDoc</div>
 			</div>
-			
+			<div className="col m5 offset-m6 search-box-home z-depth-5">
+			<Search />
+			</div>
+
+				
+			</div>
+					
 
 			)
 

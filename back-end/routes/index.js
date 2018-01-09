@@ -269,7 +269,8 @@ connection.query(selectQuery, [drToken],(error,results)=>{
 			}else{
 				res.json({
 					msg: 'cool',
-					name: drName
+					name: drName,
+					drID: drID
 				})
 			}
 		})
