@@ -73,27 +73,7 @@ router.post('/login', (req,res,next)=>{
 					}
 				})
 
-				// const doctorQuery = `SELECT * FROM doctors
-				// 					 WHERE drID = ?`;
-				// connection.query(doctorQuery,[checkID], (errors,results)=>{
-				// 	if(error){
-				// 		throw error;
-				// 	}else{
-				// 		res.json({
-				// 			msg: "successss",
-				// 			drName: results[0].drName,
-				// 			drPractice: results[0].drPractice,
-				// 			drPhone: results[0].drPhone,
-				// 			drAddress: results[0].drAddress,
-				// 			drCity: results[0].drCity,
-				// 			drState: results[0].drState,
-				// 			drZip: results[0].drZip,
-				// 			drID: results[0].drID,
-				// 			drPhoto: results[0].drPhoto
-
-				// 		})
-				// 	}
-				// })
+		
 			}else{
 				res.json({
 					msg: "wrongPassword"
@@ -235,14 +215,8 @@ router.post('/getDoctor', function(req,res,next){
 
 						})
 					
-					}
-						})
-			
-
-
-
-		
-
+		}
+	})
 })
 
 router.post('/addDoctor', function(req, res, next) {
@@ -304,8 +278,6 @@ connection.query(selectQuery, [drToken],(error,results)=>{
 
 })
 
-
-  // res.json({msg: "cool"});
 });
 
 

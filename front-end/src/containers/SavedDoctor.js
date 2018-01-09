@@ -16,36 +16,8 @@ class SavedDoctor extends Component{
         this.state = {
             name : ''
         }
-            // this.handleSubmit = this.handleSubmit.bind(this);
 
     }
-//  handleSubmit(event){
-//     event.preventDefault();
-//     let doctorsInfo = sessionStorage.getItem('doctors');
-//     var doctors = JSON.parse(doctorsInfo);//somehow we loose state - so I use localstorage
-       
-//         var doctorid = (this.props.match.params.id);
-//     let doctor = doctors.filter((doc, index)=>{
-//             return doc.id == doctorid
-//         })
-//      const addDoctorData = {
-//        drName : doctor[0].fullName,
-//        drID: doctor[0].uid,
-//        drPractice: doctor[0].name,
-//        drAddress: doctor[0].visitAddress,
-//        drPhone: doctor[0].phoneArray[0].number,
-//        drCity: doctor[0].city,
-//        drState: doctor[0].state,
-//        drZip: doctor[0].zip,
-//        drPhoto: doctor[0].photo,
-//        drToken: this.props.auth.token
-//       }
-//     this.props.addDoctor(addDoctorData);
-//     console.log(addDoctorData);
-    
-
-    
-//   }
 
 componentWillReceiveProps(newProps){
   if(newProps.add.msg === "ok"){

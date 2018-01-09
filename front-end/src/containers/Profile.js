@@ -12,21 +12,7 @@ import DoctorProfile from '../components/DoctorProfile';
 
 
 class Profile extends Component{
-  //  constructor (props) {
-  //   super(props);
-  //   this.state = {
-  //     email: ""
-  //   }
-  //   this.handleSubmit = this.handleSubmit.bind(this);
-  // }
 
-
-  //  componentWillReceiveProps(newProps){
-  // if(newProps.add.msg === "groovy"){
-  //   // usr has logged in. Move them on
-  //   newProps.history.push('/SavedDoctor');
-  //   }
-  // }
 	render(){
     console.log(this.props.add)
     console.log(this.props.auth.doctor);
@@ -41,14 +27,6 @@ class Profile extends Component{
         // console.log(addDoctorData);
 
        
-  // handleSubmit(event){
-  //   event.preventDefault();
-    
-  //   console.log("making STRIDES");
-  // }
- 
-
-
 
 
         return(
@@ -81,7 +59,7 @@ class Profile extends Component{
   			</tr>
   			<tr>
     			<th>Address:</th>
-   				<td >In Your Heart</td>
+   				<td >10 Cloverfield Lane</td>
   			</tr>
   			<tr>
     			<th>City:</th>
@@ -129,11 +107,6 @@ class Profile extends Component{
 
 
 
-// function componentWillReceiveProps(props){
-  
-//     console.log(props);
-  
-// }
 
 function mapStateToProps(state){
 	// state = RootReducer
