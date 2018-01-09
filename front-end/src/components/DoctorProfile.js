@@ -1,18 +1,55 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import DoctorMap from './DoctorMap';
-import jquery from 'jquery'
+import jquery from 'jquery';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import AddDoctor from '../actions/AddDoctor';
+import './hidden.css';
 
 class DoctorProfile extends Component{
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         name : ''
-    //     }
-    //         this.handleSubmit = this.handleSubmit.bind(this);
+    constructor(props){
+        super(props);
+        this.state = {
+            name : ''
+        }
+            this.handleSubmit = this.handleSubmit.bind(this);
 
-    // }
+    }
+ handleSubmit(event){
+    event.preventDefault();
+    let doctorsInfo = sessionStorage.getItem('doctors');
+    var doctors = JSON.parse(doctorsInfo);//somehow we loose state - so I use localstorage
+       
+        var doctorid = (this.props.match.params.id);
+    let doctor = doctors.filter((doc, index)=>{
+            return doc.id == doctorid
+        })
+     const addDoctorData = {
+       drName : doctor[0].fullName,
+       drID: doctor[0].uid,
+       drPractice: doctor[0].name,
+       drAddress: doctor[0].visitAddress,
+       drPhone: doctor[0].phoneArray[0].number,
+       drCity: doctor[0].city,
+       drState: doctor[0].state,
+       drZip: doctor[0].zip,
+       drPhoto: doctor[0].photo,
+       drToken: this.props.auth.token
+      }
+    this.props.addDoctor(addDoctorData);
+    console.log(addDoctorData);
+    
 
+    
+  }
+
+componentWillReceiveProps(newProps){
+  if(newProps.add.msg === "cool"){
+    // usr has logged in. Move them on
+    newProps.history.push('/profile');
+    }
+  }
    
 
 
@@ -24,7 +61,12 @@ class DoctorProfile extends Component{
         let doctorsInfo = sessionStorage.getItem('doctors');
         var doctors = JSON.parse(doctorsInfo);//somehow we loose state - so I use localstorage
         console.log("from sessionStorage ", doctors, typeof(doctors))
-		console.log(this.props);
+		
+        console.log("MEEXXXX");
+        console.log(this.props);
+        console.log(this.props.auth.token);
+        console.log("MEEXXXX");
+
         var doctorid = (this.props.match.params.id);
         // console.log(doctorid);
         //now we need to filter through array of doctors to filter out the one with uid
@@ -34,19 +76,15 @@ class DoctorProfile extends Component{
         console.log(doctor);
         console.log(typeof(doctor[0].phoneArray))
         var x = JSON.stringify(doctor[0].phoneArray[0]);
-        console.log(x)
+        console.log(x);
+        
 
             x = x.replace(/\D+/g, '')
             .replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')
             console.log(x)
 
 
-  // handleSubmit(event){
-  //   event.preventDefault();
-    
-  //   console.log({doctor[0].visitAddress});
-  // }
-
+ 
 
 
 
@@ -112,6 +150,18 @@ class DoctorProfile extends Component{
 		)
 	}
 }
+function mapStateToProps(state){
+  return{
+    auth: state.auth,
+    add: state.add
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    addDoctor: AddDoctor,
+  }, dispatch);
+}
 
 
-export default DoctorProfile;
+export default connect(mapStateToProps,mapDispatchToProps)(DoctorProfile);

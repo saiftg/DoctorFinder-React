@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import LoginAction from '../actions/LoginAction';
+import AddDoctor from '../actions/AddDoctor';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -10,6 +11,8 @@ class NavBar extends Component{
 	// }
 	render(){
 		console.log(this.props.auth);
+		console.log(this.props.add);
+
 		return(
 
 		<div className="navbar-fixed">

@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import { Form, FormGroup, ControlLabel, FormControl, Button, Col} from 'react-bootstrap'
 import {bindActionCreators} from 'redux';
 import LoginAction from '../actions/LoginAction';
+import GetDoctor from '../actions/GetDoctor';
 
 import "./Login.css";
 
@@ -140,13 +141,16 @@ class Login extends Component {
 
 function mapStateToProps(state){
   return{
-    auth: state.auth
+    auth: state.auth,
+    add: state.auth
   }
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     loginAction: LoginAction,
+    getDoctor: GetDoctor
+
   }, dispatch);
 }
 

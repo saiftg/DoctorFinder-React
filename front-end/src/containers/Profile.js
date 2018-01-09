@@ -1,9 +1,11 @@
 import React from 'react';
 import { Component } from 'react';
 import LoginAction from '../actions/LoginAction';
+import AddDoctor from '../actions/AddDoctor';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
+import DoctorProfile from '../components/DoctorProfile';
 
 
 
@@ -11,7 +13,8 @@ import { Link } from 'react-router-dom';
 class Profile extends Component{
 	render(){
         // document.body.style.background = 'url("../images/background5.jpg") no-repeat center center fixed'
-        document.body.style.backgroundSize = 'cover'
+        document.body.style.backgroundSize = 'cover';
+        // console.log(addDoctorData);
 
        
   // handleSubmit(event){
@@ -74,7 +77,7 @@ class Profile extends Component{
 		</tr>
 		<tr>
 			<th>Primary Care Physician:</th>
-			<td>Dr.MARMADUKE</td>
+			<td><Link to="/getDoctor">{this.props.auth.doctor}</Link></td>
 		</tr>
 	 
 
@@ -98,10 +101,20 @@ class Profile extends Component{
 	}
 };
 
+
+
+
+// function componentWillReceiveProps(props){
+  
+//     console.log(props);
+  
+// }
+
 function mapStateToProps(state){
 	// state = RootReducer
 	return{
 		auth: state.auth,
+    add: state.add
 		
 	}
 }

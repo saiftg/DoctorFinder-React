@@ -5,6 +5,7 @@ import NavBar from './containers/NavBar';
 import Search from './containers/Search';
 import SearchResults from './containers/SearchResults';
 import DoctorProfile from './components/DoctorProfile';
+import SavedDoctor from './containers/SavedDoctor';
 import Home from './containers/Home';
 import Register from './containers/Register';
 import Login from './containers/Login';
@@ -32,6 +33,7 @@ class App extends Component {
           <Route exact path='/login' component={Login} />
           <Route exact path='/profile' component={Profile}/>
           <Route exact path='/' component={Logout}/>
+          <Route exact path='/getDoctor' component={SavedDoctor}/>
 
 
         </div>

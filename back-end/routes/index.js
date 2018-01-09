@@ -32,6 +32,7 @@ router.post('/login', (req,res,next)=>{
 	const email = req.body.email;
 	const password = req.body.password;
 
+
 	const checkLoginQuery = `SELECT * FROM users
 	WHERE users.email = ?`;
 
@@ -45,12 +46,13 @@ router.post('/login', (req,res,next)=>{
 			})
 		}else{
 			const checkHash = bcrypt.compareSync(password, results[0].password)
-			// const name = results[0].name;
+			
 
 			if(checkHash){
 				const newToken = randToken.uid(100);
 				const updateToken = `UPDATE users SET token = ?
 									WHERE email = ?`;
+
 				connection.query(updateToken, [newToken, email],(error)=>{
 					if (error){
 						throw error;
@@ -65,9 +67,33 @@ router.post('/login', (req,res,next)=>{
 							state: results[0].state,
 							zipcode: results[0].zip_code,
 							insurance: results[0].insurance,
+							doctor: results[0].doctor,
+							drID: results[0].drID
 						})
 					}
 				})
+
+				// const doctorQuery = `SELECT * FROM doctors
+				// 					 WHERE drID = ?`;
+				// connection.query(doctorQuery,[checkID], (errors,results)=>{
+				// 	if(error){
+				// 		throw error;
+				// 	}else{
+				// 		res.json({
+				// 			msg: "successss",
+				// 			drName: results[0].drName,
+				// 			drPractice: results[0].drPractice,
+				// 			drPhone: results[0].drPhone,
+				// 			drAddress: results[0].drAddress,
+				// 			drCity: results[0].drCity,
+				// 			drState: results[0].drState,
+				// 			drZip: results[0].drZip,
+				// 			drID: results[0].drID,
+				// 			drPhoto: results[0].drPhoto
+
+				// 		})
+				// 	}
+				// })
 			}else{
 				res.json({
 					msg: "wrongPassword"
@@ -175,6 +201,131 @@ router.post('/search', function(req, res, next){
 	});    
 });
 
+
+
+router.post('/getDoctor', function(req,res,next){
+	let email = req.body.email;
+
+	const checkEmail = `SELECT * FROM users WHERE email = ?`;
+
+	connenction.query(checkEmail,[email],(error,results)=>{
+		if(error){
+			throw error
+		}else if(results.length === 0){
+			res.json({
+				msg: 'no match'
+			})
+		}else{
+			const drID = results[0].drID;
+	
+
+
+			const checkIDQuery = `SELECT * FROM users
+			WHERE drID = ?`;
+
+	connection.query(checkIDQuery,[drID], (error,results)=>{
+		if(error){
+			throw error
+		}
+		if(results.length === 0){
+			res.json({
+				msg: "noo.."
+			})
+		}else{
+				const checkID = results[0].drID;
+
+				const doctorQuery = `SELECT * FROM doctors
+									 WHERE drID = ?`;
+				connection.query(doctorQuery,[checkID], (error,results)=>{
+					if(error){
+						throw error;
+					}else{
+						res.json({
+							msg: "successss",
+							drName: results[0].drName,
+							drPractice: results[0].drPractice,
+							drPhone: results[0].drPhone,
+							drAddress: results[0].drAddress,
+							drCity: results[0].drCity,
+							drState: results[0].drState,
+							drZip: results[0].drZip,
+							drID: results[0].drID,
+							drPhoto: results[0].drPhoto
+
+						})
+						console.log(drAddress);
+					}
+						})
+			}
+	})
+
+				}
+		})
+
+})
+
+router.post('/addDoctor', function(req, res, next) {
+	console.log(req.body);
+	let drName = (req.body.drName);
+	let drID = (req.body.drID);
+	let drPractice = req.body.drName;
+    let drAddress = req.body.drAddress;
+    let drPhone = req.body.drPhone;
+    let drCity = req.body.drCity;
+    let drState = req.body.drState;
+    let drZip = req.body.drZip;
+    let drPhoto = req.body.drPhoto;
+    let drToken = req.body.drToken;
+
+
+	
+
+    const selectQuery = "SELECT * FROM users WHERE users.token = ?;";
+connection.query(selectQuery, [drToken],(error,results)=>{
+	if(results.length == 0){
+		console.log("Error, please login and try again");
+		res.json({
+			msg: "again"
+		})
+	}else{
+		const insertQuery = `UPDATE users 
+							 SET doctor = ?,
+							 drID = ? 
+							 WHERE token = ?`;
+		connection.query(insertQuery,[drName,drID,drToken], (error,results)=>{
+			if(error){
+				throw error
+			}else{
+				res.json({
+					msg: "cool",
+					name: drName
+				})
+
+			}
+
+		})
+		const anotherQuery = `INSERT INTO doctors
+		(drName,drPractice,drPhone,drAddress,drCity,drState,drZip,drID,drPhoto)
+		VALUES (?,?,?,?,?,?,?,?,?);`;
+
+		connection.query(anotherQuery,[drName,drPractice,drPhone,drAddress,drCity,drState,drZip,drID,drPhoto],(error,results)=>{
+			if(error){
+				throw error
+			}else{
+				res.json({
+					msg: 'Doc got his own',
+					name: drName
+				})
+			}
+		})
+
+	}
+
+})
+
+
+  // res.json({msg: "cool"});
+});
 
 
 
