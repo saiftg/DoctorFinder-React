@@ -204,11 +204,15 @@ router.post('/search', function(req, res, next){
 
 
 router.post('/getDoctor', function(req,res,next){
-	let email = req.body.email;
+	console.log(req.body);
+	let drID = req.body.drID;
 
-	const checkEmail = `SELECT * FROM users WHERE email = ?`;
+	const checkID = `SELECT * FROM doctors WHERE drID = ?`;
+						console.log("SS%^&*(#UEHOHFFWN");
 
-	connenction.query(checkEmail,[email],(error,results)=>{
+
+	connection.query(checkID,[drID],(error,results)=>{
+
 		if(error){
 			throw error
 		}else if(results.length === 0){
@@ -216,32 +220,9 @@ router.post('/getDoctor', function(req,res,next){
 				msg: 'no match'
 			})
 		}else{
-			const drID = results[0].drID;
-	
 
-
-			const checkIDQuery = `SELECT * FROM users
-			WHERE drID = ?`;
-
-	connection.query(checkIDQuery,[drID], (error,results)=>{
-		if(error){
-			throw error
-		}
-		if(results.length === 0){
-			res.json({
-				msg: "noo.."
-			})
-		}else{
-				const checkID = results[0].drID;
-
-				const doctorQuery = `SELECT * FROM doctors
-									 WHERE drID = ?`;
-				connection.query(doctorQuery,[checkID], (error,results)=>{
-					if(error){
-						throw error;
-					}else{
 						res.json({
-							msg: "successss",
+							msg: "ok",
 							drName: results[0].drName,
 							drPractice: results[0].drPractice,
 							drPhone: results[0].drPhone,
@@ -253,14 +234,14 @@ router.post('/getDoctor', function(req,res,next){
 							drPhoto: results[0].drPhoto
 
 						})
-						console.log(drAddress);
+					
 					}
 						})
-			}
-	})
+			
 
-				}
-		})
+
+
+		
 
 })
 
@@ -296,10 +277,10 @@ connection.query(selectQuery, [drToken],(error,results)=>{
 			if(error){
 				throw error
 			}else{
-				res.json({
-					msg: "cool",
-					name: drName
-				})
+				// res.json({
+				// 	msg: "cool",
+				// 	name: drName
+				// })
 
 			}
 
@@ -313,7 +294,7 @@ connection.query(selectQuery, [drToken],(error,results)=>{
 				throw error
 			}else{
 				res.json({
-					msg: 'Doc got his own',
+					msg: 'cool',
 					name: drName
 				})
 			}

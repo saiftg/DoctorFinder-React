@@ -45,6 +45,7 @@ class DoctorProfile extends Component{
   }
 
 componentWillReceiveProps(newProps){
+  console.log(newProps)
   if(newProps.add.msg === "cool"){
     // usr has logged in. Move them on
     newProps.history.push('/profile');
@@ -137,7 +138,7 @@ componentWillReceiveProps(newProps){
                 {doctor[0].bio}
                 </div>
                 <div className="col s12">
-            <button className="btn btn-primary" onClick={this.handleSubmit} id="change-info-btn">Change Info</button>
+            <button className="btn btn-primary" onClick={this.handleSubmit} id="change-info-btn">Add This Doctor</button>
 
     </div>
             </div>
@@ -160,6 +161,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     addDoctor: AddDoctor,
+   
   }, dispatch);
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import LoginAction from '../actions/LoginAction';
 import AddDoctor from '../actions/AddDoctor';
+import GetDoctor from '../actions/GetDoctor';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
@@ -11,7 +12,30 @@ import DoctorProfile from '../components/DoctorProfile';
 
 
 class Profile extends Component{
+  //  constructor (props) {
+  //   super(props);
+  //   this.state = {
+  //     email: ""
+  //   }
+  //   this.handleSubmit = this.handleSubmit.bind(this);
+  // }
+
+
+  //  componentWillReceiveProps(newProps){
+  // if(newProps.add.msg === "groovy"){
+  //   // usr has logged in. Move them on
+  //   newProps.history.push('/SavedDoctor');
+  //   }
+  // }
 	render(){
+    console.log(this.props.add)
+    console.log(this.props.auth.doctor);
+
+      if(this.props.add.length !== 0){
+        var priCare = this.props.add.name
+      }else{
+        priCare = this.props.auth.doctor
+      }
         // document.body.style.background = 'url("../images/background5.jpg") no-repeat center center fixed'
         document.body.style.backgroundSize = 'cover';
         // console.log(addDoctorData);
@@ -20,8 +44,9 @@ class Profile extends Component{
   // handleSubmit(event){
   //   event.preventDefault();
     
-  //   console.log({doctor[0].visitAddress});
+  //   console.log("making STRIDES");
   // }
+ 
 
 
 
@@ -77,7 +102,7 @@ class Profile extends Component{
 		</tr>
 		<tr>
 			<th>Primary Care Physician:</th>
-			<td><Link to="/getDoctor">{this.props.auth.doctor}</Link></td>
+			<td><Link to={`/getDoctor/${this.props.auth.drID}`}>{priCare}</Link></td>
 		</tr>
 	 
 
@@ -122,6 +147,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
 	return bindActionCreators({
 		loginAction: LoginAction,
+    getDoctor: GetDoctor
 	},dispatch);
 }
 
