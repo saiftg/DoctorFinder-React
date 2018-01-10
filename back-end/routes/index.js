@@ -124,14 +124,61 @@ router.post('/register', function(req,res,next){
 });
 
 
+router.post('/update', function(req,res,next){
+	const userData = req.body;
+	console.log(userData);
+	let name = userData.name;
+	let email = userData.email;
+	let password = userData.password;
+	let city = userData.city;
+	let state = userData.state;
+	let zipcode = userData.zipcode;
+	let phone = userData.phoneNumber;
+	let insurance = userData.insuranceType;
+	const selectQuery = "SELECT * FROM users WHERE email = ?;";
+	connection.query(selectQuery,[email],(error,results)=>{
+		// if(results.length != 0){
+		// 	console.log("EMAIL REG ALREADY");
+		// 	res.json({
+		// 			msg: "alreadyin"
+		// 		})
+		// 	}else{
+				const hash = bcrypt.hashSync(password);
+				// const token = randToken.uid(60);
+				const insertQuery = `UPDATE users 
+				SET name = ?,
+			    password = ?,
+			    city = ?, 
+			    state = ?, 
+			    zip_code = ?, 
+			    phone = ?, 
+			    insurance = ?
+				WHERE email = ?;`;
+		connection.query(insertQuery,[name, hash, city, state, zipcode, phone, insurance,email],(error,results)=>{
+	 			if(error){
+	 				throw error;
+	 			}else{
+	 				res.json({
+	 					msg: 'success',
+	 					// name: userData.name,
+	 					// email: userData.email,
+	 					// phone: userData.phone
+	 				})
+	 			}
+	 		})
+		
+	})
+});
+
+
 
 
 //search based on query and location
-router.post('/searchQuery',function(req, res, next){
-	console.log('someone showed up here')
-	// new query string:
-	let baseURL = `https://api.betterdoctor.com/2016-03-01/doctors?query=k&location=37.773%2C-122.413%2C100&user_location=37.773%2C-122.413&skip=0&limit=10&user_key=${API_KEY}`
-})
+// router.post('/searchQuery',function(req, res, next){
+// 	console.log('someone showed up here')
+// 	// new query string:
+// 	let baseURL = `https://api.betterdoctor.com/2016-03-01/doctors?query=k&location=37.773%2C-122.413%2C100&user_location=37.773%2C-122.413&skip=0&limit=10&user_key=${API_KEY}`
+// })
 
 
 //search based on insurance, location and specialty
@@ -166,12 +213,17 @@ router.post('/search', function(req, res, next){
         			let doctors = localDoctor.localDoctorSelector(drData.data)
 					// console.log('line 51 in index.js', localDoctor.localDoctorSelector(drData.data))
 					console.log("doctor: ", doctors);
+					if (doctors.length !== 0){
 					// building data to send back
 	        		res.json({
 	        			msg: "success",
 	        			doctors: doctors,
 	        			mylocation: geodata
 	        			})
+	        			}else{
+	        				console.log("no results for your search")
+	        				res.json({msg: "badSearch"});
+	        			}
 	        		}else{
 	        			console.log("no results for your search")
 	        			res.json({msg: "badSearch"});

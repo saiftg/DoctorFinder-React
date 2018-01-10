@@ -7,14 +7,18 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
 import DoctorProfile from '../components/DoctorProfile';
+import EditProfile from './EditProfile';
 
 
 
 
 class Profile extends Component{
 
+
 	render(){
-    console.log(this.props.add)
+    console.log(this.props.add);
+    console.log(this.props.auth);
+    console.log(this.props.edit)
     console.log(this.props.auth.doctor);
 
       if(this.props.add.length !== 0){
@@ -96,6 +100,11 @@ class Profile extends Component{
             <div className="col s3">
                 <img id="drPhoto" src = '../images/6d.png' />
             </div>
+            <div className="col s12">
+            <button className="btn btn-primary"  id="change-info-btn">
+            <Link to='/EditProfile'>Edit Profile</Link></button>
+
+    </div>
              
             </div>
            

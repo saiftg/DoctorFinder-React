@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Autosuggest from 'react-autosuggest';
 import Insurance from '../components/Insurance';
 import { FormErrors } from './TestFormErrors';
-import RegisterAction from '../actions/RegisterAction';
+import EditAction from '../actions/EditAction';
 
 import "./Register.css";
 
@@ -13,15 +13,16 @@ import "./Register.css";
 // const insurance = Insurance;
 // console.log(insurance);
 
-class Register extends Component{
+class EditProfile extends Component{
+
   constructor (props) {
     super(props);
     this.state = {
-      email: '',
+      
       password: '',
       phone: '',
-      formErrors: {email: '', password: '', phone: '', zipcode: ''},
-      emailValid: false,
+      formErrors: {password: '', phone: '', zipcode: ''},
+      
       passwordValid: false,
       phoneValid: false,
       zipcodeValid: false,
@@ -39,16 +40,15 @@ class Register extends Component{
 
   validateField(fieldName, value) {
     let fieldValidationErrors = this.state.formErrors;
-    let emailValid = this.state.emailValid;
     let passwordValid = this.state.passwordValid;
     let phoneValid = this.state.phoneValid;
     let zipcodeValid = this.state.zipcodeValid;
 
     switch(fieldName) {
-      case 'email':
-        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        fieldValidationErrors.email = emailValid ? '' : 'Email address is invalid';
-        break;
+      // case 'email':
+      //   emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+      //   fieldValidationErrors.email = emailValid ? '' : 'Email address is invalid';
+      //   break;
       case 'password':
         passwordValid = (value.length >= 6);
         fieldValidationErrors.password = passwordValid ? '': 'Password is too short';
@@ -66,7 +66,6 @@ class Register extends Component{
         break;
     }
     this.setState({formErrors: fieldValidationErrors,
-                    emailValid: emailValid,
                     passwordValid: passwordValid,
                     phoneValid: phoneValid,
                     zipcodeValid: zipcodeValid
@@ -74,8 +73,7 @@ class Register extends Component{
   }
 
   validateForm() {
-    this.setState({formValid: this.state.emailValid && this.state.passwordValid && this.state.phoneValid && this.state.zipcodeValid,
-                   emailValid:this.state.emailValid 
+    this.setState({formValid: this.state.passwordValid && this.state.phoneValid && this.state.zipcodeValid
                     });
   }
 
@@ -100,7 +98,8 @@ class Register extends Component{
 
 		}
     console.log(formData);
-    this.props.registerAction(formData);
+    console.log("101" + this.state.edit);
+    this.props.editAction(formData);
 	};
 
 
@@ -115,9 +114,9 @@ class Register extends Component{
   //     error: "We do not have an account for this email address."
   //   })
   // }else 
-    if(newProps.auth.msg === "success"){
+    if(newProps.edit.msg === "success"){
     // usr has logged in. Move them on
-    newProps.history.push('/login');
+    newProps.history.push('/profile');
     }else if(newProps.auth.msg === "alreadyin"){
       // newProps.history.push('/register');
       this.setState({
@@ -128,6 +127,7 @@ class Register extends Component{
 
 
 	render(){
+    console.log(this.props.auth)
 
 	return(
         <div className = "register">
@@ -153,7 +153,8 @@ class Register extends Component{
               <i className="material-icons prefix icons">email</i>
               <input type="email"  name="email"
                 placeholder="Email Address"
-                value={this.state.email}
+                readOnly = "readOnly"
+                value={this.props.auth.email}
                 onChange={this.handleUserInput}  />
                 <FormErrors formErrors={this.state.formErrors.email} />
                 </div>
@@ -219,7 +220,7 @@ class Register extends Component{
                 <FormErrors formErrors={this.state.formErrors.phone} />
         <button type="submit" className="btn waves-effect waves-light"
 
-        disabled={!this.state.formValid}>Register!
+        disabled={!this.state.formValid}>Save Changes!
         <i className="material-icons right">send</i></button>
                 </div>
             </form>
@@ -233,13 +234,14 @@ class Register extends Component{
 
 function mapStateToProps(state){
   return{
-    auth: state.auth
+    auth: state.auth,
+    edit: state.edit
   }
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    registerAction: RegisterAction,
+    editAction: EditAction,
   }, dispatch);
 }
 
@@ -250,4 +252,4 @@ function mapDispatchToProps(dispatch){
 
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Register);
+export default connect(mapStateToProps,mapDispatchToProps)(EditProfile);

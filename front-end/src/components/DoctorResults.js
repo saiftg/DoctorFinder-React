@@ -21,7 +21,7 @@ class DoctorResults extends Component{
             phoneNumber = phoneNumber.replace(/\D+/g, '')
             .replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')
         // var distance = Math.round(profile.distance *100) / 100
-        var distance = (profile.distance.toFixed(2)) // another way of rounding
+        var distance = (profile.distance) // another way of rounding
         console.log(distance)
 
         const marker = {

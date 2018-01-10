@@ -11,6 +11,7 @@ import Register from './containers/Register';
 import Login from './containers/Login';
 import Profile from './containers/Profile';
 import Logout from './containers/Logout';
+import EditProfile from './containers/EditProfile';
 
 
 
@@ -34,6 +35,7 @@ class App extends Component {
           <Route exact path='/profile' component={Profile}/>
           <Route exact path='/' component={Logout}/>
           <Route exact path='/getDoctor/:drID' component={SavedDoctor}/>
+          <Route exact path='/EditProfile' component={EditProfile}/>
 
 
         </div>
