@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import SearchActionReducer from './SearchActionReducer';
+import SelectMarkerReducer from './SelectMarkerReducer';
 import AuthReducer from './AuthReducer';
 import AddDoctorReducer from './AddDoctorReducer';
 import getDoctorReducer from './getDoctorReducer';
@@ -12,7 +13,8 @@ const RootReducer = combineReducers({
 	auth: AuthReducer,
 	add: AddDoctorReducer,
 	edit: EditProfileReducer,
-	get: getDoctorReducer //for login and reg
+	get: getDoctorReducer, 
+	// selectMarker: SelectMarkerReducer//for login and reg
 })
 
 export default RootReducer;

@@ -26,7 +26,7 @@ const MyMapComponent = compose(
   withGoogleMap
 )((props) =>
   <GoogleMap
-    defaultZoom={11}
+    defaultZoom={12}
     defaultCenter={{ lat: props.myloc.lat, lng: props.myloc.lng}}
     options={{streetViewControl: false}}
 
@@ -34,7 +34,7 @@ const MyMapComponent = compose(
     return
     <MarkerWithLabel 
     position={ props.myloc }
-    labelAnchor={new google.maps.Point(30,55)}
+    labelAnchor={new google.maps.Point(30,48)}
     labelStyle={{backgroundColor: "blue", fontSize: "10px", color:"white", padding: "3px"}}
     defaultIcon = {{url:'https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Home.png', width: '10px'}}
     animation = {google.maps.Animation.DROP}

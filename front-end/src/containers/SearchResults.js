@@ -45,6 +45,7 @@ class SearchResults extends Component{
 
 	render(){
 		var marker = this.props.marker;
+		console.log("marker", marker)
 		document.body.style.background = 'url("../images/background5.jpg") no-repeat center fixed'
 		document.body.style.backgroundSize = 'cover'
 		console.log(this.props.drData.data.doctors);//if after refresh this state is empty - we'll use sessionStorage
@@ -78,14 +79,14 @@ class SearchResults extends Component{
 		return(
 				<div className="results-wrapper">
 					<div className="row">
-						<div className="col s7 big-box">
+						<div className="col s7 big-box slide">
 								{doctors.map((doctor, index)=>{
 									return <DoctorResults key={index} profile={doctor} oneDoctorMarker = {this.mouseAction} />
 								})}{/*we are closing .map and then JS expression here*/}
 							</div>
-							<div className="col s5 map">
+							<div className="col s5 map slide2">
 							{console.log(myLocation)}
-								<DoctorMap hoverFunc={this.hover} mouseOut={this.onMouseOut} doctors={doctors} myloc={myLocation} />
+								<DoctorMap hoverFunc={this.hover} mouseOut={this.onMouseOut} doctors={selectdoctors} myloc={myLocation} />
 							</div>
 					</div>
 				</div>

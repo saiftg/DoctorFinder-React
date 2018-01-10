@@ -8,6 +8,7 @@ import {bindActionCreators} from 'redux';
 import { Link } from 'react-router-dom';
 import DoctorProfile from '../components/DoctorProfile';
 import EditProfile from './EditProfile';
+import './profile.css';
 
 
 
