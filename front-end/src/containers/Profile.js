@@ -21,6 +21,11 @@ class Profile extends Component{
     console.log(this.props.edit)
     console.log(this.props.auth.doctor);
 
+
+
+
+
+
       if(this.props.add.length !== 0){
         var priCare = this.props.add.name
         var priCareLink = this.props.add.drID
@@ -28,6 +33,14 @@ class Profile extends Component{
         priCare = this.props.auth.doctor
         priCareLink = this.props.auth.drID
       }
+
+      if(this.props.edit.length !== 0){
+        var newProfile = this.props.edit
+      }else{
+        newProfile = this.props.auth
+      }
+
+
         // document.body.style.background = 'url("../images/background5.jpg") no-repeat center center fixed'
         document.body.style.backgroundSize = 'cover';
         // console.log(addDoctorData);
@@ -53,15 +66,15 @@ class Profile extends Component{
                    
             	<tr>
     				<th>Name:</th>
-    			<td>{this.props.auth.name}</td>
+    			<td>{newProfile.name}</td>
   			</tr>
   			<tr>
     			<th>Email:</th>
-    			<td>{this.props.auth.email}</td>
+    			<td>{newProfile.email}</td>
   			</tr>
   			<tr>
     			<th>Phone:</th>
-    			<td>{this.props.auth.phone}</td>
+    			<td>{newProfile.phone}</td>
   			</tr>
   			<tr>
     			<th>Address:</th>
@@ -69,20 +82,20 @@ class Profile extends Component{
   			</tr>
   			<tr>
     			<th>City:</th>
-   				<td >{this.props.auth.city}</td>
+   				<td >{newProfile.city}</td>
   			</tr>
   			<tr>
     			<th>State:</th>
-   				<td >{this.props.auth.state}</td>
+   				<td >{newProfile.state}</td>
   			</tr>
   			<tr>
   				<th>Zipcode:</th>
-  			<td>{this.props.auth.zipcode}</td>
+  			<td>{newProfile.zipcode}</td>
 			</tr>
 			<tr>
 					
 			<th>Insurance:</th>
-			<td>{this.props.auth.insurance}</td>
+			<td>{newProfile.insurance}</td>
 		</tr>
 		<tr>
 			<th>Primary Care Physician:</th>
@@ -126,7 +139,8 @@ function mapStateToProps(state){
 	// state = RootReducer
 	return{
 		auth: state.auth,
-    add: state.add
+    add: state.add,
+    edit: state.edit
 		
 	}
 }
@@ -134,7 +148,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
 	return bindActionCreators({
 		loginAction: LoginAction,
-    getDoctor: GetDoctor
+    getDoctor: GetDoctor,
+    editProfile: EditProfile
 	},dispatch);
 }
 

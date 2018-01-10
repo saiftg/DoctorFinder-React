@@ -160,9 +160,13 @@ router.post('/update', function(req,res,next){
 	 			}else{
 	 				res.json({
 	 					msg: 'success',
-	 					// name: userData.name,
-	 					// email: userData.email,
-	 					// phone: userData.phone
+	 					name: name,
+	 					email: email,
+	 					phone: phone,
+	 					city: city,
+	 					state: state,
+	 					zipcode: zipcode,
+	 					insurance: insurance
 	 				})
 	 			}
 	 		})

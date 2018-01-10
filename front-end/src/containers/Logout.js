@@ -18,7 +18,7 @@ class Logout extends Component{
 
 		return(
 			<div className="register-wrapper">
-				SEE YA!!
+			
 			</div>
 		)
 	}
