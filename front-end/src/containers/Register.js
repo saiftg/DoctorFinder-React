@@ -117,7 +117,7 @@ class Register extends Component{
   // }else 
     if(newProps.auth.msg === "success"){
     // usr has logged in. Move them on
-    newProps.history.push('/login');
+    newProps.history.push('/profile');
     }else if(newProps.auth.msg === "alreadyin"){
       // newProps.history.push('/register');
       this.setState({

@@ -114,7 +114,15 @@ router.post('/register', function(req,res,next){
 	 			}else{
 	 				res.json({
 	 					token: token,
-	 					name: userData.name,
+	 					name: name,
+
+						email: email,
+						password: password,
+						city: city,
+						state: state,
+						zipcode: zipcode,
+						phone: phone,
+						insurance: insurance,
 	 					msg: 'success'
 	 				})
 	 			}
